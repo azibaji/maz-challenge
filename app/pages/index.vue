@@ -6,18 +6,7 @@
         class="filters-trigger"
         @click="openFilters"
       >
-        <svg
-          viewBox="0 0 20 20"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 6h12M4 10h12M4 14h12"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          />
-        </svg>
+        <Menu />
         Filters
         <span
           v-if="activeFilterCount > 0"
@@ -49,16 +38,7 @@
             >
               <SearchIcon />
               "{{ search }}"
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                aria-hidden="true"
-              ><path
-                d="M6 6l8 8M14 6l-8 8"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              /></svg>
+              <Close />
             </button>
             <button
               v-for="c in activeCategories"
@@ -68,16 +48,7 @@
               @click="removeCategory(c)"
             >
               {{ categoryLabel(c) }}
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                aria-hidden="true"
-              ><path
-                d="M6 6l8 8M14 6l-8 8"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              /></svg>
+              <Close />
             </button>
             <button
               v-if="sort !== 'default'"
@@ -87,16 +58,7 @@
             >
               <SortIcon />
               {{ sortLabel }}
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                aria-hidden="true"
-              ><path
-                d="M6 6l8 8M14 6l-8 8"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              /></svg>
+              <Close />
             </button>
             <button
               type="button"
@@ -164,7 +126,8 @@
 </template>
 
 <script setup lang="ts">
-import { SearchIcon, SortIcon } from '~/components/Icons'
+import { FilterPanel } from '~/components/Filter'
+import { Close, Menu, SearchIcon, SortIcon } from '~/components/Icons'
 import { useProducts } from '~/composables/useProducts'
 
 const { data: products, pending, error } = useProducts()

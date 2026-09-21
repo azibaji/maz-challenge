@@ -10,6 +10,10 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { FilterDrawer } from '~/components/Filter'
+</script>
+
 <style scoped>
 .app-shell {
   min-height: 100%;

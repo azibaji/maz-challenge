@@ -34,21 +34,10 @@
           @click="sortOpen = !sortOpen"
         >
           <span class="panel__label">Sort by</span>
-          <svg
+          <ChevronDown
             class="panel__chevron"
             :class="{ 'panel__chevron--open': sortOpen }"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          />
         </button>
         <div
           v-show="sortOpen"
@@ -81,21 +70,10 @@
           @click="categoryOpen = !categoryOpen"
         >
           <span class="panel__label">Category</span>
-          <svg
+          <ChevronDown
             class="panel__chevron"
             :class="{ 'panel__chevron--open': categoryOpen }"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          />
         </button>
         <div
           v-show="categoryOpen"
@@ -124,7 +102,7 @@
 
 <script setup lang="ts">
 import { sortOptions } from '~/composables/useProductFilters'
-import { SearchIcon } from './Icons'
+import { ChevronDown, SearchIcon } from '../Icons'
 
 defineProps<{
   categories: string[]

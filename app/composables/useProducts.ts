@@ -5,12 +5,19 @@ const API_BASE = 'https://fakestoreapi.com'
 export function useProducts() {
   return useFetch<Product[]>(`${API_BASE}/products`, {
     key: 'products',
-    default: () => [],
+    default: () => []
   })
 }
+
 export function useCategories() {
   return useFetch<string[]>(`${API_BASE}/products/categories`, {
     key: 'categories',
-    default: () => [],
+    default: () => []
+  })
+}
+
+export function useProduct(id: string | number) {
+  return useFetch<Product>(`${API_BASE}/products/${id}`, {
+    key: `product-${id}`
   })
 }

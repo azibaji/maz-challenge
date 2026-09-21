@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useProducts } from '~/composables/useProducts'
+import { Close } from '~/components/Icons'
+import FilterPanel from './Panel.vue'
 
 const { isOpen, close } = useMobileMenu()
 const { data: categories } = useCategories()
@@ -60,18 +62,7 @@ onBeforeUnmount(() => {
             aria-label="Close filters"
             @click="close"
           >
-            <svg
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M6 6l8 8M14 6l-8 8"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              />
-            </svg>
+            <Close />
           </button>
         </div>
         <div class="drawer__body">

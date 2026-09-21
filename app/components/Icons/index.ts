@@ -1,3 +1,7 @@
 export { default as ChevronLeft } from './ChevronLeft.vue'
+export { default as ChevronDown } from './ChevronDown.vue'
+export { default as Close } from './Close.vue'
+export { default as Menu } from './Menu.vue'
 export { default as SearchIcon } from './Search.vue'
 export { default as SortIcon } from './Sort.vue'
+export { default as ZoomToggle } from './ZoomToggle.vue'
