@@ -1,19 +1,112 @@
 <template>
   <div class="page container">
-    <div class="page__head">
-      <div>
-        <h1 class="page__title">
-          All Products
-        </h1>
-      </div>
+    <div class="mobile-filter-bar">
+      <button
+        type="button"
+        class="filters-trigger"
+        @click="openFilters"
+      >
+        <svg
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 6h12M4 10h12M4 14h12"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+        </svg>
+        Filters
+        <span
+          v-if="activeFilterCount > 0"
+          class="filters-trigger__badge"
+        >{{ activeFilterCount }}</span>
+      </button>
     </div>
 
     <div class="layout">
       <aside class="sidebar">
-        sidebar
+        <FilterPanel
+          :categories="categories ?? []"
+          :category-counts="categoryCounts"
+        />
       </aside>
 
       <div class="content">
+        <div
+          v-if="hasActiveFilters"
+          class="chips"
+        >
+          <span class="chips__label">Applied filters:</span>
+          <div>
+            <button
+              v-if="search"
+              type="button"
+              class="chip"
+              @click="search = ''"
+            >
+              <SearchIcon />
+              "{{ search }}"
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+              ><path
+                d="M6 6l8 8M14 6l-8 8"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              /></svg>
+            </button>
+            <button
+              v-for="c in activeCategories"
+              :key="c"
+              type="button"
+              class="chip"
+              @click="removeCategory(c)"
+            >
+              {{ categoryLabel(c) }}
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+              ><path
+                d="M6 6l8 8M14 6l-8 8"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              /></svg>
+            </button>
+            <button
+              v-if="sort !== 'default'"
+              type="button"
+              class="chip"
+              @click="sort = 'default'"
+            >
+              <SortIcon />
+              {{ sortLabel }}
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+              ><path
+                d="M6 6l8 8M14 6l-8 8"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              /></svg>
+            </button>
+            <button
+              type="button"
+              class="clear-link"
+              @click="clearFilters"
+            >
+              Clear all
+            </button>
+          </div>
+        </div>
         <div
           v-if="pending"
           class="grid"
@@ -71,15 +164,62 @@
 </template>
 
 <script setup lang="ts">
+import { SearchIcon, SortIcon } from '~/components/Icons'
 import { useProducts } from '~/composables/useProducts'
 
 const { data: products, pending, error } = useProducts()
+const { data: categories } = useCategories()
+const { search, categories: activeCategories, sort, hasActiveFilters, removeCategory, clearFilters }
+  = useProductFilters()
+const { open: openFilters } = useMobileMenu()
 
 const filteredProducts = computed(() => {
-  const list = products.value ?? []
+  let list = products.value ?? []
+
+  if (activeCategories.value.length > 0) {
+    list = list.filter(p => activeCategories.value.includes(p.category))
+  }
+
+  const q = search.value.trim().toLowerCase()
+  if (q) {
+    list = list.filter(p => p.title.toLowerCase().includes(q))
+  }
+
+  list = [...list]
+  switch (sort.value) {
+    case 'price-asc':
+      list.sort((a, b) => a.price - b.price)
+      break
+    case 'price-desc':
+      list.sort((a, b) => b.price - a.price)
+      break
+    case 'rating-desc':
+      list.sort((a, b) => b.rating.rate - a.rating.rate)
+      break
+    case 'rating-asc':
+      list.sort((a, b) => a.rating.rate - b.rating.rate)
+      break
+  }
+
   return list
 })
-
+const sortLabel = computed(() => sortOptions.find(o => o.value === sort.value)?.label)
+const categoryCounts = computed(() => {
+  const counts: Record<string, number> = {}
+  for (const p of products.value ?? []) {
+    counts[p.category] = (counts[p.category] ?? 0) + 1
+  }
+  return counts
+})
+const activeFilterCount = computed(() => {
+  let count = activeCategories.value.length
+  if (search.value.trim()) count++
+  if (sort.value !== 'default') count++
+  return count
+})
+function categoryLabel(c: string) {
+  return c.charAt(0).toUpperCase() + c.slice(1)
+}
 const ROWS_PER_BATCH = 3
 const columns = ref(3)
 const rowsLoaded = ref(1)
@@ -109,7 +249,7 @@ function observeSentinel() {
           rowsLoaded.value++
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '200px' },
     )
     intersectionObserver.observe(sentinel.value)
   }
@@ -184,6 +324,24 @@ watch(filteredProducts, () => {
   color: var(--color-accent-dark);
 }
 
+.filters-trigger__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mobile-filter-bar {
+  margin-bottom: 18px;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -195,15 +353,6 @@ watch(filteredProducts, () => {
   display: none;
 }
 
-.sidebar__card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  position: sticky;
-  top: calc(var(--header-height) + 20px);
-}
-
 .sidebar__title {
   margin: 0 0 18px;
   font-size: 16px;
@@ -213,14 +362,19 @@ watch(filteredProducts, () => {
 .chips {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
 }
 
 .chips__label {
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: #253343;
   font-weight: 600;
 }
 
@@ -233,10 +387,11 @@ watch(filteredProducts, () => {
   border-radius: 999px;
   border: none;
   background: var(--color-accent-soft);
-  color: var(--color-accent-dark);
+  color: #0A2A51;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  margin: 0px 2px;
 }
 
 .chip svg {
@@ -262,13 +417,6 @@ watch(filteredProducts, () => {
 .clear-link:hover {
   color: var(--color-accent-dark);
 }
-
-.results-meta {
-  margin: 0 0 18px;
-  font-size: 13.5px;
-  color: var(--color-text-muted);
-}
-
 .link-btn {
   border: none;
   background: none;
@@ -319,7 +467,7 @@ watch(filteredProducts, () => {
 }
 
 @media (min-width: 1024px) {
-  .filters-trigger {
+  .mobile-filter-bar {
     display: none;
   }
 

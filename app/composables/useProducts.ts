@@ -8,3 +8,9 @@ export function useProducts() {
     default: () => [],
   })
 }
+export function useCategories() {
+  return useFetch<string[]>(`${API_BASE}/products/categories`, {
+    key: 'categories',
+    default: () => [],
+  })
+}

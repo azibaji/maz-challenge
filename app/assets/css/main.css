@@ -5,13 +5,13 @@
   --color-border-muted: #E9EDF5;
   --color-text: #0A2A51;
   --color-text-muted: #6f6c78;
-  --color-accent: #e91e63;
+  --color-accent: #E20054;
   --color-accent-dark: #c2185b;
-  --color-accent-soft: #fce4ec;
+  --color-accent-soft: #FCE5EE;
   --color-star: #f5a623;
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-lg: 21px;
   --shadow-card: 0 1px 2px rgba(20, 16, 30, 0.04), 0 6px 20px rgba(20, 16, 30, 0.06);
   --shadow-pop: 0 10px 40px rgba(20, 16, 30, 0.18);
   --header-height: 68px;

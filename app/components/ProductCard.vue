@@ -108,7 +108,7 @@ defineProps<{
   border: 1.5px solid var(--color-border-muted);
   color: var(--color-accent-dark);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   transition: background 0.15s ease, color 0.15s ease;
   margin-right: 4px;
   margin-left: 4px;
