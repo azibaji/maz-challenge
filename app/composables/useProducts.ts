@@ -1,23 +1,18 @@
 import type { Product } from '~/types/product'
-
-const API_BASE = 'https://fakestoreapi.com'
+import { getCategories, getProduct, getProducts } from '~/services/products'
 
 export function useProducts() {
-  return useFetch<Product[]>(`${API_BASE}/products`, {
-    key: 'products',
+  return useAsyncData<Product[]>('products', () => getProducts(), {
     default: () => []
   })
 }
 
 export function useCategories() {
-  return useFetch<string[]>(`${API_BASE}/products/categories`, {
-    key: 'categories',
+  return useAsyncData<string[]>('categories', () => getCategories(), {
     default: () => []
   })
 }
 
 export function useProduct(id: string | number) {
-  return useFetch<Product>(`${API_BASE}/products/${id}`, {
-    key: `product-${id}`
-  })
+  return useAsyncData<Product>(`product-${id}`, () => getProduct(id))
 }
