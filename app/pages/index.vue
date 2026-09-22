@@ -262,7 +262,7 @@ watch(filteredProducts, () => {
   padding: 0 5px;
   border-radius: 999px;
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   font-size: 11px;
   font-weight: 700;
 }
@@ -303,7 +303,7 @@ watch(filteredProducts, () => {
 
 .chips__label {
   font-size: 13px;
-  color: #253343;
+  color: var(--color-text-strong);
   font-weight: 600;
 }
 
@@ -316,7 +316,7 @@ watch(filteredProducts, () => {
   border-radius: 999px;
   border: none;
   background: var(--color-accent-soft);
-  color: #0A2A51;
+  color: var(--color-text);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -329,7 +329,7 @@ watch(filteredProducts, () => {
 }
 
 .chip:hover {
-  background: #f8c9dc;
+  background: var(--color-accent-soft-hover);
 }
 
 .clear-link {
@@ -370,7 +370,7 @@ watch(filteredProducts, () => {
 .skeleton-card {
   height: 320px;
   border-radius: var(--radius-md);
-  background: linear-gradient(100deg, #eeecf1 30%, #f6f5f8 50%, #eeecf1 70%);
+  background: linear-gradient(100deg, var(--color-skeleton-base) 30%, var(--color-skeleton-highlight) 50%, var(--color-skeleton-base) 70%);
   background-size: 200% 100%;
   animation: shimmer 1.3s ease-in-out infinite;
   border: 1px solid var(--color-border);

@@ -45,21 +45,21 @@
           href="#"
           class="footer__social-link"
         >
-          <Telegram />
+          <span class="footer__social-icon"><Telegram /></span>
           Telegram
         </a>
         <a
           href="#"
           class="footer__social-link"
         >
-          <Instagram />
+          <span class="footer__social-icon"><Instagram /></span>
           Instagram
         </a>
         <a
           href="#"
           class="footer__social-link"
         >
-          <Linkedin />
+          <span class="footer__social-icon"><Linkedin /></span>
           LinkedIn
         </a>
       </div>
@@ -126,11 +126,10 @@ import { Instagram, Linkedin, Telegram, Twitter, Youtube } from '~/components/Ic
   margin-bottom: 4px;
 }
 
-.footer__link,
-.footer__social-link {
+.footer__link {
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: var(--color-navy);
 }
 
 .footer__link:hover,
@@ -143,11 +142,26 @@ import { Instagram, Linkedin, Telegram, Twitter, Youtube } from '~/components/Ic
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-strong);
 }
 
-.footer__social-link svg {
-  width: 16px;
-  height: 16px;
+.footer__social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-slate);
+  color: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.footer__social-icon svg {
+  width: 15px;
+  height: 15px;
 }
 
 .footer__bottom {

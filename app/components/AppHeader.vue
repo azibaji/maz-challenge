@@ -90,9 +90,9 @@ function isActive(path: string) {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
   white-space: nowrap;
 }
 
@@ -103,7 +103,7 @@ function isActive(path: string) {
 
 .header__link:hover,
 .header__link--active {
-  color: var(--color-text);
+  color: var(--color-accent);
 }
 
 .header__dot {
@@ -125,7 +125,7 @@ function isActive(path: string) {
   padding: 0 18px;
   border-radius: 999px;
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   font-size: 13.5px;
   font-weight: 700;
   flex-shrink: 0;

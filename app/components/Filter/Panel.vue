@@ -14,6 +14,7 @@
               v-model="searchDraft"
               type="search"
               placeholder="Search products…"
+              @search="applySearch"
             >
           </label>
           <button
@@ -150,7 +151,7 @@ const categoryOpen = ref(true)
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #445A74;
+  color: var(--color-label);
   margin-bottom: 16px;
 }
 
@@ -237,7 +238,7 @@ const categoryOpen = ref(true)
   border-radius: 12px;
   border: 1px solid var(--color-accent);
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -304,10 +305,10 @@ const categoryOpen = ref(true)
   padding: 0 6px;
   border-radius: 6px;
   border: 1px solid var(--color-border);
-  background: #141928;
+  background: var(--color-badge);
   font-size: 12px;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-surface);
   flex-shrink: 0;
 }
 

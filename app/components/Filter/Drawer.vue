@@ -91,7 +91,7 @@ onBeforeUnmount(() => {
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(10, 10, 20, 0.45);
+  background: var(--color-overlay);
   z-index: 60;
 }
 
@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
   border-radius: 999px;
   border: none;
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;

@@ -235,13 +235,13 @@ useHead(() => ({
   height: 36px;
   border: none;
   border-radius: 999px;
-  background: rgba(10, 10, 20, 0.55);
-  color: #fff;
+  background: var(--color-overlay-dark);
+  color: var(--color-surface);
   cursor: pointer;
 }
 
 .detail__zoom:hover {
-  background: rgba(10, 10, 20, 0.75);
+  background: var(--color-overlay-dark-hover);
 }
 
 .detail__zoom svg {
@@ -267,7 +267,7 @@ useHead(() => ({
 }
 
 .specs {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: 20px;
 }
@@ -292,7 +292,7 @@ useHead(() => ({
 }
 
 .specs__value, .specs__label {
-  background: #F5F7FA;
+  background: var(--color-surface-muted);
   padding: 14px 16px;
 }
 
@@ -300,7 +300,7 @@ useHead(() => ({
   margin: 0;
   font-size:14px;
   font-weight: 500;
-  color: #57728E;
+  color: var(--color-slate);
   border-radius: 4px 16px 16px 4px;
 }
 
@@ -308,7 +308,7 @@ useHead(() => ({
   margin: 0;
   font-size: 13px;
   font-weight: 700;
-  color: #30445B;
+  color: var(--color-navy);
   border-radius: 16px 4px 4px 16px;
 }
 
@@ -335,7 +335,7 @@ useHead(() => ({
 .detail--skeleton .skeleton-image {
   aspect-ratio: 16 / 10;
   border-radius: var(--radius-md);
-  background: linear-gradient(100deg, #eeecf1 30%, #f6f5f8 50%, #eeecf1 70%);
+  background: linear-gradient(100deg, var(--color-skeleton-base) 30%, var(--color-skeleton-highlight) 50%, var(--color-skeleton-base) 70%);
   background-size: 200% 100%;
   animation: shimmer 1.3s ease-in-out infinite;
 }
@@ -348,7 +348,7 @@ useHead(() => ({
 
 .skeleton-line {
   border-radius: 6px;
-  background: linear-gradient(100deg, #eeecf1 30%, #f6f5f8 50%, #eeecf1 70%);
+  background: linear-gradient(100deg, var(--color-skeleton-base) 30%, var(--color-skeleton-highlight) 50%, var(--color-skeleton-base) 70%);
   background-size: 200% 100%;
   animation: shimmer 1.3s ease-in-out infinite;
 }

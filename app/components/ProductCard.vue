@@ -46,13 +46,13 @@ defineProps<{
 .card:hover,
 .card:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 34px rgba(20, 16, 30, 0.12);
-  border-color: #f2c6d6;
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-accent-soft-hover);
 }
 
 .card__image {
   aspect-ratio: 1 / 1;
-  background: #fff;
+  background: var(--color-surface);
   overflow: hidden;
   padding: 8px;
   height: 170px;
@@ -120,9 +120,9 @@ defineProps<{
 
 .card:hover .card__cta {
   background: var(--color-accent);
-  color: white;
+  color: var(--color-surface);
 }
 .card:hover .card__cta svg {
-  color: #fff;
+  color: var(--color-surface);
 }
 </style>
