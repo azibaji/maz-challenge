@@ -1,75 +1,55 @@
-# Nuxt Minimal Starter
+# Maz Challenge — Product Catalog
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A product catalog built with Nuxt 4 and Vue 3, backed by the [Fake Store API](https://fakestoreapi.com). It lists products with search, category filtering, and sorting, and includes a product detail page with a zoomable/pannable image.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- **Product listing** — grid of products with infinite scroll (loads more rows as you scroll)
+- **Filtering & sorting** — search by title, filter by category (desktop sidebar / mobile drawer), sort by price or rating
+- **Active filter chips** — applied filters are shown as removable chips, with a "clear all" action
+- **Product detail page** — full specs (price, description, category, rating) with a click-to-zoom, drag-to-pan product image
+- **Loading & error states** — skeleton placeholders while data loads, friendly messages on failure or empty results
+
+## Tech Stack
+
+- [Nuxt 4](https://nuxt.com/) / [Vue 3](https://vuejs.org/) (Composition API, `<script setup>`)
+- TypeScript
+- ESLint (`@nuxt/eslint`, stylistic rules)
+
+## Project Structure
+
+```
+app/
+├── components/       # UI components (ProductCard, AppHeader/Footer, BreadCrumb, Filter/, Icons/)
+├── composables/       # useProducts, useProductFilters, useCategoryCounts
+├── services/          # API calls to the Fake Store API
+├── types/              # Shared TypeScript types (Product, ProductRating)
+├── utils/              # Filtering/sorting helpers, category helpers
+└── pages/              # index.vue (catalog), products/[id]/index.vue (detail)
+```
+
+## Getting Started
+
+Install dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Start the dev server at `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Other Scripts
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run build      # Production build
+npm run generate    # Static site generation
+npm run preview      # Preview the production build locally
 ```
 
-Locally preview production build:
+## Configuration
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The Fake Store API base URL is set via `runtimeConfig.public.apiBase` in [nuxt.config.ts](nuxt.config.ts) (defaults to `https://fakestoreapi.com`).
