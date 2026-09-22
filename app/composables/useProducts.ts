@@ -1,3 +1,4 @@
+import type { MaybeRefOrGetter } from 'vue'
 import type { Product } from '~/types/product'
 import { getCategories, getProduct, getProducts } from '~/services/products'
 
@@ -13,6 +14,8 @@ export function useCategories() {
   })
 }
 
-export function useProduct(id: string | number) {
-  return useAsyncData<Product>(`product-${id}`, () => getProduct(id))
+export function useProduct(id: MaybeRefOrGetter<string | number>) {
+  return useAsyncData<Product>('product', () => getProduct(toValue(id)), {
+    watch: [() => toValue(id)]
+  })
 }

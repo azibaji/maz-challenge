@@ -124,10 +124,6 @@ function applySearch() {
 
 const sortOpen = ref(true)
 const categoryOpen = ref(true)
-
-function categoryLabel(c: string) {
-  return c.charAt(0).toUpperCase() + c.slice(1)
-}
 </script>
 
 <style scoped>

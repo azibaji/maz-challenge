@@ -8,13 +8,7 @@ const { data: categories } = useCategories()
 const { data: products } = useProducts()
 const { hasActiveFilters, clearFilters } = useProductFilters()
 
-const categoryCounts = computed(() => {
-  const counts: Record<string, number> = {}
-  for (const p of products.value ?? []) {
-    counts[p.category] = (counts[p.category] ?? 0) + 1
-  }
-  return counts
-})
+const categoryCounts = useCategoryCounts(products)
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') close()

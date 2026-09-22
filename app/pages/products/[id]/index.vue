@@ -121,7 +121,7 @@ import { useProduct } from '~/composables/useProducts'
 
 const route = useRoute()
 const id = computed(() => route.params.id as string)
-const { data: product, pending, error } = useProduct(id.value)
+const { data: product, pending, error } = useProduct(id)
 
 const breadcrumbItems = computed(() => [
   { label: 'All Products', to: '/' },

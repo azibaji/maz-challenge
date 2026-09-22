@@ -136,53 +136,19 @@ const { search, categories: activeCategories, sort, hasActiveFilters, removeCate
   = useProductFilters()
 const { open: openFilters } = useMobileMenu()
 
-const filteredProducts = computed(() => {
-  let list = products.value ?? []
-
-  if (activeCategories.value.length > 0) {
-    list = list.filter(p => activeCategories.value.includes(p.category))
-  }
-
-  const q = search.value.trim().toLowerCase()
-  if (q) {
-    list = list.filter(p => p.title.toLowerCase().includes(q))
-  }
-
-  list = [...list]
-  switch (sort.value) {
-    case 'price-asc':
-      list.sort((a, b) => a.price - b.price)
-      break
-    case 'price-desc':
-      list.sort((a, b) => b.price - a.price)
-      break
-    case 'rating-desc':
-      list.sort((a, b) => b.rating.rate - a.rating.rate)
-      break
-    case 'rating-asc':
-      list.sort((a, b) => a.rating.rate - b.rating.rate)
-      break
-  }
-
-  return list
-})
+const filteredProducts = computed(() => filterAndSortProducts(products.value ?? [], {
+  search: search.value,
+  categories: activeCategories.value,
+  sort: sort.value
+}))
 const sortLabel = computed(() => sortOptions.find(o => o.value === sort.value)?.label)
-const categoryCounts = computed(() => {
-  const counts: Record<string, number> = {}
-  for (const p of products.value ?? []) {
-    counts[p.category] = (counts[p.category] ?? 0) + 1
-  }
-  return counts
-})
+const categoryCounts = useCategoryCounts(products)
 const activeFilterCount = computed(() => {
   let count = activeCategories.value.length
   if (search.value.trim()) count++
   if (sort.value !== 'default') count++
   return count
 })
-function categoryLabel(c: string) {
-  return c.charAt(0).toUpperCase() + c.slice(1)
-}
 const ROWS_PER_BATCH = 3
 const columns = ref(3)
 const rowsLoaded = ref(1)
