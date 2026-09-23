@@ -2,93 +2,93 @@
   <footer class="footer">
     <div class="footer__inner container">
       <div class="footer__col">
-        <span class="footer__heading">Quick Access</span>
+        <span class="footer__heading">{{ t('footer.quickAccess') }}</span>
         <NuxtLink
           to="/"
           class="footer__link footer__link--active"
         >
-          Home
+          {{ t('footer.home') }}
         </NuxtLink>
         <a
           href="#"
           class="footer__link"
-        >About Us</a>
+        >{{ t('footer.aboutUs') }}</a>
         <a
           href="#"
           class="footer__link"
-        >Contact Us</a>
+        >{{ t('footer.contactUs') }}</a>
         <a
           href="#"
           class="footer__link"
-        >After-Sales Service</a>
+        >{{ t('footer.afterSalesService') }}</a>
       </div>
 
       <div class="footer__col">
-        <span class="footer__heading">Site Guide</span>
+        <span class="footer__heading">{{ t('footer.siteGuide') }}</span>
         <a
           href="#"
           class="footer__link"
-        >Terms & Conditions</a>
+        >{{ t('footer.termsConditions') }}</a>
         <a
           href="#"
           class="footer__link"
-        >FAQ</a>
+        >{{ t('footer.faq') }}</a>
         <a
           href="#"
           class="footer__link"
-        >Complaints & Suggestions</a>
+        >{{ t('footer.complaintsSuggestions') }}</a>
       </div>
 
       <div class="footer__col">
-        <span class="footer__heading">Social Networks</span>
+        <span class="footer__heading">{{ t('footer.socialNetworks') }}</span>
         <a
           href="#"
           class="footer__social-link"
         >
           <span class="footer__social-icon"><Telegram /></span>
-          Telegram
+          {{ t('footer.telegram') }}
         </a>
         <a
           href="#"
           class="footer__social-link"
         >
           <span class="footer__social-icon"><Instagram /></span>
-          Instagram
+          {{ t('footer.instagram') }}
         </a>
         <a
           href="#"
           class="footer__social-link"
         >
           <span class="footer__social-icon"><Linkedin /></span>
-          LinkedIn
+          {{ t('footer.linkedin') }}
         </a>
       </div>
     </div>
 
     <div class="footer__bottom">
       <p class="footer__copyright">
-        © {{ new Date().getFullYear() }} — All rights reserved.
+        {{ t('footer.copyright', { year: new Date().getFullYear() }) }}
       </p>
       <div class="footer__socials">
         <a
           href="#"
-          aria-label="Telegram"
+          :aria-label="t('footer.telegram')"
         ><Telegram /></a>
         <a
           href="#"
-          aria-label="Instagram"
+          :aria-label="t('footer.instagram')"
         ><Instagram /></a>
         <a
           href="#"
-          aria-label="Twitter"
+          :aria-label="t('footer.twitter')"
         ><Twitter /></a>
         <a
           href="#"
-          aria-label="YouTube"
+          :aria-label="t('footer.youtube')"
         ><Youtube /></a>
         <a
           href="#"
-          aria-label="LinkedIn"
+          :aria-label="t('footer.linkedin')"
         ><Linkedin /></a>
       </div>
     </div>
@@ -97,6 +97,8 @@
 
 <script setup lang="ts">
 import { Instagram, Linkedin, Telegram, Twitter, Youtube } from '~/components/Icons'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

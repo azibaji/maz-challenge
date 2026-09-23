@@ -12,6 +12,14 @@
 
 <script setup lang="ts">
 import { FilterDrawer } from '~/components/Filter'
+
+const head = useLocaleHead()
+useHead(() => ({
+  htmlAttrs: {
+    lang: head.value.htmlAttrs?.lang,
+    dir: head.value.htmlAttrs?.dir,
+  },
+}))
 </script>
 
 <style scoped>

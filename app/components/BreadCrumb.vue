@@ -9,12 +9,14 @@ export interface BreadcrumbItem {
 defineProps<{
   items: BreadcrumbItem[]
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
   <nav
     class="breadcrumb"
-    aria-label="Breadcrumb"
+    :aria-label="t('breadcrumb.ariaLabel')"
   >
     <template
       v-for="(item, index) in items"

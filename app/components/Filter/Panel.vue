@@ -2,18 +2,18 @@
   <div class="panel">
     <div class="panel__card">
       <section class="panel__section">
-        <span class="panel__label">Search & Filter</span>
+        <span class="panel__label">{{ t('filters.searchAndFilter') }}</span>
         <form
           class="search-field"
           @submit.prevent="applySearch"
         >
           <label class="search-field__input-wrap">
             <SearchIcon color="accent" />
-            <span class="visually-hidden">Search products</span>
+            <span class="visually-hidden">{{ t('filters.searchAriaLabel') }}</span>
             <input
               v-model="searchDraft"
               type="search"
-              placeholder="Search products…"
+              :placeholder="t('filters.searchPlaceholder')"
               @search="applySearch"
             >
           </label>
@@ -21,7 +21,7 @@
             type="submit"
             class="search-field__submit"
           >
-            Search
+            {{ t('filters.search') }}
           </button>
         </form>
       </section>
@@ -34,7 +34,7 @@
           :aria-expanded="sortOpen"
           @click="sortOpen = !sortOpen"
         >
-          <span class="panel__label">Sort by</span>
+          <span class="panel__label">{{ t('filters.sortBy') }}</span>
           <ChevronDown
             class="panel__chevron"
             :class="{ 'panel__chevron--open': sortOpen }"
@@ -44,7 +44,7 @@
           v-show="sortOpen"
           class="option-list"
           role="radiogroup"
-          aria-label="Sort products"
+          :aria-label="t('filters.sortAriaLabel')"
         >
           <label
             v-for="opt in sortOptions"
@@ -70,7 +70,7 @@
           :aria-expanded="categoryOpen"
           @click="categoryOpen = !categoryOpen"
         >
-          <span class="panel__label">Category</span>
+          <span class="panel__label">{{ t('filters.category') }}</span>
           <ChevronDown
             class="panel__chevron"
             :class="{ 'panel__chevron--open': categoryOpen }"
@@ -102,8 +102,10 @@
 </template>
 
 <script setup lang="ts">
-import { sortOptions } from '~/composables/useProductFilters'
+import { useSortOptions } from '~/composables/useProductFilters'
 import { ChevronDown, SearchIcon } from '../Icons'
+
+const { t } = useI18n()
 
 defineProps<{
   categories: string[]
@@ -112,6 +114,7 @@ defineProps<{
 
 const { search, categories: activeCategories, sort, toggleCategory, clearFilters, hasActiveFilters }
   = useProductFilters()
+const sortOptions = useSortOptions()
 
 const searchDraft = ref(search.value)
 

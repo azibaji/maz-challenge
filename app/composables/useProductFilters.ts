@@ -1,11 +1,14 @@
 export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating-desc' | 'rating-asc'
 
-export const sortOptions: { value: SortOption; label: string }[] = [
-  { value: 'price-asc', label: 'Price: Low to High' },
-  { value: 'price-desc', label: 'Price: High to Low' },
-  { value: 'rating-desc', label: 'Rating: High to Low' },
-  { value: 'rating-asc', label: 'Rating: Low to High' }
-]
+export function useSortOptions() {
+  const { t } = useI18n()
+  return computed<{ value: SortOption; label: string }[]>(() => [
+    { value: 'price-asc', label: t('filters.sortOptions.priceAsc') },
+    { value: 'price-desc', label: t('filters.sortOptions.priceDesc') },
+    { value: 'rating-desc', label: t('filters.sortOptions.ratingDesc') },
+    { value: 'rating-asc', label: t('filters.sortOptions.ratingAsc') }
+  ])
+}
 
 export function useProductFilters() {
   const search = useState<string>('filters-search', () => '')

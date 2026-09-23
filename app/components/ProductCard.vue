@@ -14,7 +14,7 @@
       <span class="card__category">{{ product.category }}</span>
       <h3 class="card__title">{{ product.title }}</h3>
       <span class="card__cta">
-        Show details
+        {{ t('productCard.showDetails') }}
         <ChevronLeft :width="16" />
       </span>
     </div>
@@ -28,6 +28,8 @@ import { ChevronLeft } from '~/components/Icons'
 defineProps<{
   product: Product
 }>()
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

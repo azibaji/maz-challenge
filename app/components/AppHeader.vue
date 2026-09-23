@@ -3,7 +3,7 @@
     <div class="header__inner container">
       <nav
         class="header__nav"
-        aria-label="Main"
+        :aria-label="t('nav.main')"
       >
         <NuxtLink
           to="/"
@@ -11,7 +11,7 @@
           :class="{ 'header__link--active': isActive('/') }"
         >
           <Grid />
-          Product List
+          {{ t('nav.productList') }}
           <span
             v-if="isActive('/')"
             class="header__dot"
@@ -22,21 +22,21 @@
           class="header__link"
         >
           <Book />
-          Get Consultation
+          {{ t('nav.getConsultation') }}
         </a>
         <a
           href="#"
           class="header__link"
         >
           <Question />
-          FAQ
+          {{ t('nav.faq') }}
         </a>
         <a
           href="#"
           class="header__link"
         >
           <Phone />
-          Contact Us
+          {{ t('nav.contactUs') }}
         </a>
       </nav>
 
@@ -45,7 +45,7 @@
         class="header__cta"
       >
         <Phone />
-        <span>Call Us</span>
+        <span>{{ t('nav.callUs') }}</span>
       </a>
     </div>
   </header>
@@ -54,6 +54,7 @@
 <script setup lang="ts">
 import { Book, Grid, Phone, Question } from '~/components/Icons'
 
+const { t } = useI18n()
 const route = useRoute()
 
 function isActive(path: string) {

@@ -40,11 +40,11 @@
       v-else-if="error || !product"
       class="state-message"
     >
-      <p>We couldn't find that product.</p>
+      <p>{{ t('productDetail.notFound') }}</p>
       <NuxtLink
         to="/"
         class="link-btn"
-      >Return to product list</NuxtLink>
+      >{{ t('productDetail.returnToList') }}</NuxtLink>
     </div>
 
     <div
@@ -74,7 +74,7 @@
           <button
             type="button"
             class="detail__zoom"
-            :aria-label="isZoomed ? 'Zoom out' : 'Zoom in'"
+            :aria-label="isZoomed ? t('productDetail.zoomOut') : t('productDetail.zoomIn')"
             :aria-pressed="isZoomed"
             @pointerdown.stop
             @click="toggleZoom"
@@ -86,27 +86,27 @@
 
       <div class="specs">
         <h2 class="specs__heading">
-          Specifications
+          {{ t('productDetail.specifications') }}
         </h2>
         <dl class="specs__list">
           <div class="specs__row">
-            <dt class="specs__label">Price</dt>
+            <dt class="specs__label">{{ t('productDetail.price') }}</dt>
             <dd class="specs__value">${{ product.price.toFixed(2) }}</dd>
           </div>
           <div class="specs__row">
-            <dt class="specs__label">Description</dt>
+            <dt class="specs__label">{{ t('productDetail.description') }}</dt>
             <dd class="specs__value">{{ product.description }}</dd>
           </div>
           <div class="specs__row">
-            <dt class="specs__label">Category</dt>
+            <dt class="specs__label">{{ t('productDetail.category') }}</dt>
             <dd class="specs__value">{{ product.category }}</dd>
           </div>
           <div class="specs__row">
-            <dt class="specs__label">Rating</dt>
+            <dt class="specs__label">{{ t('productDetail.rating') }}</dt>
             <dd class="specs__value">{{ product.rating.rate }}</dd>
           </div>
           <div class="specs__row">
-            <dt class="specs__label">Reviews</dt>
+            <dt class="specs__label">{{ t('productDetail.reviews') }}</dt>
             <dd class="specs__value">{{ product.rating.count }}</dd>
           </div>
         </dl>
@@ -119,12 +119,13 @@
 import { ZoomToggle } from '~/components/Icons'
 import { useProduct } from '~/composables/useProducts'
 
+const { t } = useI18n()
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 const { data: product, pending, error } = useProduct(id)
 
 const breadcrumbItems = computed(() => [
-  { label: 'All Products', to: '/' },
+  { label: t('breadcrumb.allProducts'), to: '/' },
   ...(product.value ? [{ label: product.value.category }] : []),
 ])
 
@@ -176,7 +177,9 @@ function onPointerUp() {
 }
 
 useHead(() => ({
-  title: product.value ? `${product.value.title} — FakeStore` : 'Product — FakeStore',
+  title: product.value
+    ? t('productDetail.pageTitle', { title: product.value.title })
+    : t('productDetail.defaultPageTitle'),
 }))
 </script>
 

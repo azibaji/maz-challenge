@@ -3,6 +3,7 @@ import { useProducts } from '~/composables/useProducts'
 import { Close } from '~/components/Icons'
 import FilterPanel from './Panel.vue'
 
+const { t } = useI18n()
 const { isOpen, close } = useMobileMenu()
 const { data: categories } = useCategories()
 const { data: products } = useProducts()
@@ -46,14 +47,14 @@ onBeforeUnmount(() => {
         class="drawer"
         role="dialog"
         aria-modal="true"
-        aria-label="Filters"
+        :aria-label="t('filters.dialogAriaLabel')"
       >
         <div class="drawer__header">
-          <span class="drawer__title">Filters</span>
+          <span class="drawer__title">{{ t('filters.dialogAriaLabel') }}</span>
           <button
             type="button"
             class="drawer__close"
-            aria-label="Close filters"
+            :aria-label="t('filters.closeAriaLabel')"
             @click="close"
           >
             <Close />
@@ -72,14 +73,14 @@ onBeforeUnmount(() => {
             class="drawer__clear"
             @click="clearFilters"
           >
-            Clear all
+            {{ t('productList.clearAll') }}
           </button>
           <button
             type="button"
             class="drawer__apply"
             @click="close"
           >
-            Show results
+            {{ t('filters.showResults') }}
           </button>
         </div>
       </aside>

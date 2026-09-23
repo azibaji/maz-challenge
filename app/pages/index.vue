@@ -7,7 +7,7 @@
         @click="openFilters"
       >
         <Menu />
-        Filters
+        {{ t('productList.filters') }}
         <span
           v-if="activeFilterCount > 0"
           class="filters-trigger__badge"
@@ -28,7 +28,7 @@
           v-if="hasActiveFilters"
           class="chips"
         >
-          <span class="chips__label">Applied filters:</span>
+          <span class="chips__label">{{ t('productList.appliedFilters') }}</span>
           <div>
             <button
               v-if="search"
@@ -65,7 +65,7 @@
               class="clear-link"
               @click="clearFilters"
             >
-              Clear all
+              {{ t('productList.clearAll') }}
             </button>
           </div>
         </div>
@@ -84,14 +84,14 @@
           v-else-if="error"
           class="state-message"
         >
-          <p>Something went wrong loading products. Please try again.</p>
+          <p>{{ t('productList.loadError') }}</p>
         </div>
 
         <div
           v-else-if="filteredProducts.length === 0"
           class="state-message"
         >
-          <p>No products match your filters.</p>
+          <p>{{ t('productList.noResults') }}</p>
         </div>
 
         <template v-else>
@@ -130,18 +130,20 @@ import { FilterPanel } from '~/components/Filter'
 import { Close, Menu, SearchIcon, SortIcon } from '~/components/Icons'
 import { useProducts } from '~/composables/useProducts'
 
+const { t } = useI18n()
 const { data: products, pending, error } = useProducts()
 const { data: categories } = useCategories()
 const { search, categories: activeCategories, sort, hasActiveFilters, removeCategory, clearFilters }
   = useProductFilters()
 const { open: openFilters } = useMobileMenu()
+const sortOptions = useSortOptions()
 
 const filteredProducts = computed(() => filterAndSortProducts(products.value ?? [], {
   search: search.value,
   categories: activeCategories.value,
   sort: sort.value
 }))
-const sortLabel = computed(() => sortOptions.find(o => o.value === sort.value)?.label)
+const sortLabel = computed(() => sortOptions.value.find(o => o.value === sort.value)?.label)
 const categoryCounts = useCategoryCounts(products)
 const activeFilterCount = computed(() => {
   let count = activeCategories.value.length
